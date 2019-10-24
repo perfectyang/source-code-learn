@@ -2,6 +2,7 @@
 let Vue
 
 const forEach = (obj, callback) => {
+  console.log('obj', obj)
   Object.keys(obj).forEach(key => callback(key, obj[key]))
 }
 
@@ -10,7 +11,6 @@ const install = (_Vue, opts) => {
   Vue = _Vue
   Vue.mixin({
     beforeCreate () {
-      console.log('大达时在在', this)
       if (this.$options && this.$options.store) { // 有store是父组件
         this.$store = this.$options.store
       } else {

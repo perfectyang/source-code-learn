@@ -5,6 +5,7 @@ import App from './app.vue'
 import router from './router'
 import i18n from './i18n'
 import store from './store'
+import db from './myplugin/dbstore'
 // const requireComponent = require.context(
 //   // 其组件目录的相对路径
 //   './components',
@@ -45,6 +46,7 @@ new Vue({
   el: '#app',
   i18n,
   store,
+  db,
   router,
   components: {
     App

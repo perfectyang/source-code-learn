@@ -49,11 +49,11 @@ export const mapMutations = normalizeNamespace((spacename, map) => {
   norizeMap(map).forEach(({key, val}) => {
     res[key] = function (...args) {
       console.log('aaa', this)
-      const typeFn = this.$store.commit
+      const commit = this.$store.commit
       if (typeof val === 'function') {
-        return val.apply(this, [typeFn].concat(args))
+        return val.apply(this, [commit].concat(args))
       } else {
-        return typeFn.apply(this.$store, [val].concat(args))
+        return commit.apply(this.$store, [val].concat(args))
       }
     }
   })

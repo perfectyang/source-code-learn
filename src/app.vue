@@ -1,11 +1,16 @@
 <template>
   <div class="">
-       {{this.$store.state.age}}
+    <div>中文</div>
+    <div>{{this.$db.state.a}}</div>
+      <!-- <div>{{this.$db.state.a}}</div> -->
+      <!-- <div>{{this.$db.state.son.y}}</div> -->
+       <!-- {{this.$store.state.age}} -->
        <!-- <div> {{this.$store.getters.myAge}}</div> -->
-       <div>----{{this.$store.state.a.age}}----</div>
+       <!-- <div>----{{this.$store.state.a.age}}----</div>
        <h1>{{this.$store.state.bbbb}}</h1>
-       <button @click="whateverGets(10)">aa</button>
-      <router-view></router-view>
+       <button @click="whateverGets(10)">aa</button> -->
+      <!-- <router-view></router-view> -->
+      <button @click="test(10)">aa</button>
   </div>
 </template>
 
@@ -72,6 +77,12 @@ export default {
         console.log('a', a)
         console.log('self.$store.state', self.$store.state)
         self.$store.state.bbbb = 'cccc'
+      },
+      test () {
+        setInterval(_ => {
+          this.$db.state.a += 2
+        }, 1000)
+        // this.$db.commit('add', 10)
       }
     }),
   }
