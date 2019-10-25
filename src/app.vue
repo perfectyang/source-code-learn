@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <div>中文</div>
-    <div>{{this.$db.state.a}}</div>
+    <div>{{this.$store.state.mymodule.name}}</div>
       <!-- <div>{{this.$db.state.a}}</div> -->
       <!-- <div>{{this.$db.state.son.y}}</div> -->
        <!-- {{this.$store.state.age}} -->
@@ -10,7 +10,7 @@
        <h1>{{this.$store.state.bbbb}}</h1>
        <button @click="whateverGets(10)">aa</button> -->
       <!-- <router-view></router-view> -->
-      <button @click="test(10)">aa</button>
+      <button @click="testNFf('更新在这晨在')">aa</button>
   </div>
 </template>
 
@@ -22,13 +22,30 @@ export default {
     return {
     }
   },
-  mounted () {
+  created () {
     // console.log(this.$store)
     // setTimeout(_ => {
     //   this.$store.state.age = 100
     // }, 1000)
     // this.$store.state.bbbb = 100
     this.$set(this.$store.state, 'bbbb', '去段段段段d')
+    console.log('store', this.$store)
+    this.$store.registerModule('mymodule', {
+      state: {
+        name: 'perfectyang'
+      },
+      actions: {
+        fixName ({commit, dispatch}, payload) {
+          commit('setName', payload)
+        }
+      },
+      mutations: {
+        setName (state, payload) {
+          state.name = payload
+        }
+      }
+    })
+    console.log('aaaaa---------', this.$store.state)
   },
   computed: {
     name () {
@@ -36,6 +53,9 @@ export default {
     }
   },
   methods: {
+    testNFf (payload) {
+      this.$store.dispatch('fixName', payload)
+    },
     // add () {
     //   console.log(111)
     //   // this.$store.dispatch('syncAdd', 10)
@@ -48,9 +68,9 @@ export default {
         commit('add', payload)
       }
     }),
-    // ...mapActions([
-    //   'syncAdd' // -> this['some/nested/module/foo']()
-    // ]),
+    ...mapActions([
+      'syncAdd' // -> this['some/nested/module/foo']()
+    ]),
 
     // syncAdd: function mappedAction (add) {
     //   this.$store.dispatch('syncAdd', add)

@@ -190,6 +190,8 @@ export class Store {
     }
 
     this._modules.register(path, rawModule)
+    // {state: {}, _children: {'mymodule': {state: rawModule.state, _children: {}, _raw: rawModule}}}
+    // ['module']
     installModule(this, this.state, path, this._modules.get(path), options.preserveState)
     // reset store to update getters...
     resetStoreVM(this, this.state)
@@ -228,6 +230,7 @@ function genericSubscribe (fn, subs) {
     subs.push(fn)
   }
   return () => {
+    console.log('innner', subs, fn)
     const i = subs.indexOf(fn)
     if (i > -1) {
       subs.splice(i, 1)

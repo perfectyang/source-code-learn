@@ -66,6 +66,13 @@ class CollectModules { // 收集模块树
    constructor (options) {
       this.register([], options)
    }
+
+   get (path) {
+    return path.reduce((root, current) => {
+      return root._children[current]
+    }, this.root)
+   }
+
    register(path, rootModule) {
     console.log('rootModule', rootModule)
     let newModule = {
@@ -76,9 +83,7 @@ class CollectModules { // 收集模块树
     if (path.length === 0) { // 说明是根模块 [a]
       this.root = newModule
     } else { // [a, c, d]
-      let parent = path.slice(0, -1).reduce((root, current) => {
-        return root._children[current]
-      }, this.root)
+      let parent = this.get(path.slice(0, -1))
       parent._children[path[path.length - 1]] = newModule
     }
     if (rootModule.modules) { // [a, c, d]
@@ -104,35 +109,52 @@ class Store {
     this.actions = {}
     this.modules = new CollectModules(options)
     installModule(this, this.state, [], this.modules.root)
-    // let newModule = {
-    //   _raw: rootModule,
-    //   state: rootModule.state,
-    //   _children: {}
-    // }
-    // 此操作绑定 当前实例this
-    // let self = this
-    // let {commit, dispatch} = this
-    // this.commit = (type, payload) => {
-    //   commit.call(this, type, payload)
-    // }
-    // this.dispatch = (type, payload) => {
-    //   dispatch.call(this, type, payload)
-    // }
+
+    this.plugins = options.plugins || []
+    this._subscribers = []
+
+    this.plugins.forEach(plugin => plugin(this))
   }
 
   commit = (type, payload) => {
-    this.mutations[type].forEach(fn => fn(payload))
+    let entry = this.mutations[type]
+    entry.forEach((handler) => { handler(payload)})
+    // let result = entry.length > 1 ? Promise.all(entry.map(handler => handler(payload))) : entry[0](payload)
   }
 
   dispatch = (type, payload) => {
     console.log('this.actions[type]', this.actions[type])
-    this.actions[type].forEach(fn => fn(payload))
+    this.actions[type].forEach(fn => {
+      fn(payload)
+    })
   }
 
   get state () {
     return this._vm.state
   }
 
+  registerModule(path, rawModule) {
+    path = typeof path === 'string' ? [path] : path
+    this.modules.register(path, rawModule) // 收集模块 {state: {}, _raw: rawModule ,_children: {'mymodule': {_raw: rawModule,}}}
+    installModule(this, this.state, path, this.modules.get(path))
+  }
+
+  subscribe (fn) {
+    return genericSubscribe(fn, this._subscribers)
+  }
+
+}
+
+function genericSubscribe (fn, subs) {
+  if (subs.indexOf(fn) < -1) {
+    subs.push(fn)
+  }
+  return () => {
+    if (subs.indexOf(fn) > -1) {
+      let idx = subs.indexOf(fn)
+      subs.splice(idx, 1)
+    }
+  }
 }
 
 
