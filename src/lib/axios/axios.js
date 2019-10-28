@@ -1,15 +1,16 @@
 
-
-function Axios(config) {
-  this.config = config
+import Interceptors from './Interceptors'
+import dispatchRequest from './dispatchRequest'
+function Axios(localConfig) {
+  this.config = localConfig
   this.interceptors = {
     request: new Interceptors,
     response: new Interceptors
   }
 }
 
-Axios.prototype.request = function(url, config) {
-  let config = Object.assign(this.config, config, {url})
+Axios.prototype.request = function(url, localConfig) {
+  let config = Object.assign(this.config, localConfig, {url})
   let chain = [dispatchRequest, undefined]
   let promise = Promise.resolve(config)
   // 请求拦截器

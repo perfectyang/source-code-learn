@@ -11,11 +11,13 @@
        <button @click="whateverGets(10)">aa</button> -->
       <!-- <router-view></router-view> -->
       <button @click="testNFf('更新在这晨在')">aa</button>
+      <button @click="getLocalData">getData</button>
   </div>
 </template>
 
 <script>
 import {mapActions, mapMutations, mapState, mapGetters} from './vuex/testmapAction'
+import {getData} from '@/api'
 export default {
   name: 'app',
   data () {
@@ -105,6 +107,11 @@ export default {
         // this.$db.commit('add', 10)
       }
     }),
+    getLocalData () {
+      getData({}).then(res => {
+        console.log('res', res)
+      })
+    }
   }
 }
 </script>

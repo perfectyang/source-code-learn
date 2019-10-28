@@ -19,8 +19,8 @@ function CancelToken(excutor) {
 
 CancelToken.source = function () {
   let resolveParam
-  let token = new Promise((resolve, reject) => {
-    resolveParam = resolve
+  let token = new CancelToken((c) => {
+    resolveParam = c
   })
   return {
     token: token,
