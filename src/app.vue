@@ -1,7 +1,7 @@
 <template>
-  <div class="">
-    <div>中文</div>
-    <div>{{this.$store.state.mymodule.name}}</div>
+  <!-- <div class=""> -->
+    <!-- <div>中文</div> -->
+    <!-- <div>{{this.$store.state.mymodule.name}}</div> -->
       <!-- <div>{{this.$db.state.a}}</div> -->
       <!-- <div>{{this.$db.state.son.y}}</div> -->
        <!-- {{this.$store.state.age}} -->
@@ -9,10 +9,11 @@
        <!-- <div>----{{this.$store.state.a.age}}----</div>
        <h1>{{this.$store.state.bbbb}}</h1>
        <button @click="whateverGets(10)">aa</button> -->
-      <!-- <router-view></router-view> -->
-      <button @click="testNFf('更新在这晨在')">aa</button>
-      <button @click="getLocalData">getData</button>
-  </div>
+      <!-- <button @click="testNFf('更新在这晨在')">aa</button> -->
+      <!-- <button @click="getLocalData">getData</button> -->
+      <!-- <router-link to="/test">aa</router-link> -->
+      <router-view></router-view>
+  <!-- </div> -->
 </template>
 
 <script>

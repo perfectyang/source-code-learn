@@ -1,18 +1,21 @@
 <template>
-  <div>
-    cccc
+  <div class="">
+    about
   </div>
 </template>
 
 <script>
 export default {
+  name: 'about',
   data () {
     return {
-      key: 'aa'
     }
   },
+  methods: {
+  }
 }
 </script>
 
-<style lang="less" scoped>
+<style lang='less' scoped>
+
 </style>

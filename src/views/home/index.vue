@@ -1,18 +1,19 @@
 <template>
-  <div>
-    cccc
-  </div>
+  <router-view></router-view>
 </template>
 
 <script>
 export default {
+  name: 'home',
   data () {
     return {
-      key: 'aa'
     }
   },
+  methods: {
+  }
 }
 </script>
 
-<style lang="less" scoped>
+<style lang='less' scoped>
+
 </style>

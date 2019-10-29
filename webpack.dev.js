@@ -29,10 +29,10 @@ module.exports = merge(baseConfig, {
     proxy: {
     },
     quiet: true,
-    watchOptions: {
-      poll: false,
-      ignored: /\/node_modules\/.*/
-    }
+    // watchOptions: {
+    //   poll: false,
+    //   ignored: /\/node_modules\/.*/
+    // }
   },
   module: {
     rules: []

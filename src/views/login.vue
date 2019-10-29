@@ -1,5 +1,6 @@
 <template>
   <div>
+    login
     <!-- <div :content="`${survey.label}: ${survey.percentage}%`" :v-show="name === '中文'" :title="isNew ? '新建权限' : '编辑权限'"></div>
     <div>{{ finish: '正常结束页'}}{{ suspend: '甄别结束页' }}</div>
     <div>{{ visible ? '收起' : '展开' }}</div>
