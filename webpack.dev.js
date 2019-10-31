@@ -34,6 +34,23 @@ module.exports = merge(baseConfig, {
     //   ignored: /\/node_modules\/.*/
     // }
   },
+  stats: {
+    env: false,
+    chunks: false,
+    chunkGroups: false,
+
+    // 将构建模块信息添加到 chunk 信息
+    chunkModules: false,
+    // 添加错误信息
+    errors: true,
+    cachedAssets: true,
+    // 添加错误的详细信息（就像解析日志一样）
+    errorDetails: true,
+    moduleTrace: false,
+    modules: false,
+    // 当文件大小超过 `performance.maxAssetSize` 时显示性能提示
+    performance: true,
+  },
   module: {
     rules: []
   },

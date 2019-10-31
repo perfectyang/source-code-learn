@@ -2,7 +2,7 @@
 import Axios from './axios'
 import CancelToken from'./CancelToken'
 
-const source = new CancelToken.source()
+const source = CancelToken.source()
 const pendingkey = {}
 const instance = new Axios({
   baseUrl: 'http://www.web.com/index.php/',

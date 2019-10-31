@@ -96,7 +96,6 @@ class CollectModules { // 收集模块树
 
 class Store {
   constructor (options) {
-
     this._vm = new Vue({
       data () {
         return {
@@ -107,12 +106,11 @@ class Store {
     this.getters = {}
     this.mutations = {}
     this.actions = {}
-    this.modules = new CollectModules(options)
-    installModule(this, this.state, [], this.modules.root)
-
     this.plugins = options.plugins || []
     this._subscribers = []
+    this.modules = new CollectModules(options)
 
+    installModule(this, this.state, [], this.modules.root)
     this.plugins.forEach(plugin => plugin(this))
   }
 

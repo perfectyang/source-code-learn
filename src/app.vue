@@ -48,7 +48,7 @@ export default {
         }
       }
     })
-    console.log('aaaaa---------', this.$store.state)
+    // console.log('aaaaa---------', this.$store.state)
   },
   computed: {
     name () {
