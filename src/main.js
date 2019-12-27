@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import App from './app.vue'
-import router from './router'
-import i18n from './i18n'
-import store from './store'
-import db from './myplugin/dbstore'
+// import router from './router'
+// import i18n from './i18n'
+// import store from './store'
+// import db from './myplugin/dbstore'
 // const requireComponent = require.context(
 //   // 其组件目录的相对路径
 //   './components',
@@ -37,13 +37,13 @@ import db from './myplugin/dbstore'
 //   )
 // })
 Vue.config.productionTip = false
-console.log('i18n', i18n)
+// console.log('i18n', i18n)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  i18n,
-  store,
-  db,
-  router,
+  // i18n,
+  // store,
+  // db,
+  // router,
   render: h => h(App)
 })

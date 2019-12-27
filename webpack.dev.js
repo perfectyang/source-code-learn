@@ -3,14 +3,12 @@ let baseConfig = require('./webpack.base')
 const merge = require('webpack-merge')
 const webpack = require('webpack')
 
+console.log('process.env', process.env.npm_config_proxy)
+console.log('process.argvargvargv', process.argv)
+// console.log('process.env---npm_config_proxy', process.env.npm_config_proxy)
+
 module.exports = merge(baseConfig, {
   mode: 'development',
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-    port: 6060,
-    hot: true,
-  },
   devServer: {
     clientLogLevel: 'warning',
     disableHostCheck: true,
@@ -20,7 +18,7 @@ module.exports = merge(baseConfig, {
     compress: true,
     host: '0.0.0.0',
     port: 6060,
-    open: true,
+    open: false,
     overlay:  {
         warnings: false,
         errors: true

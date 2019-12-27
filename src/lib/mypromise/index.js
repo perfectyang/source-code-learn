@@ -48,9 +48,9 @@ function Promise(excutor) {
 }
 
 Promise.prototype.then = function (onResolved, onRejected) {
+  const self = this
   onResolved = typeof onResolved === 'function' ? onResolved : value => value
   onRejected = typeof onResolved === 'function' ? onRejected : reason => {throw reason}
-  const self = this
   return new Promise((resolve, reject) => {
     function handler(callback) {
       try {
