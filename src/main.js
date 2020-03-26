@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './app.vue'
-// import router from './router'
+import router from './router'
 // import i18n from './i18n'
 // import store from './store'
 // import db from './myplugin/dbstore'
@@ -44,6 +44,6 @@ new Vue({
   // i18n,
   // store,
   // db,
-  // router,
+  router,
   render: h => h(App)
 })

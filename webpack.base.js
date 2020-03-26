@@ -13,16 +13,19 @@ function resolve(dir) {
 module.exports = {
   entry: {
     index: [path.resolve(__dirname, 'src/main.js')]
+    // m2: [path.resolve(__dirname, 'src/m2/main.js')]
   },
   resolve: {
     extensions: ['.js', '.vue', '.json', '.jsx'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src')
+      '@': resolve('src'),
+      'src': resolve('src')
     }
   },
   resolveLoader: {
-    modules: ['node_modules', path.resolve(__dirname, 'loaders')]
+    // path.resolve('./loaders')
+    modules: ['node_modules', path.resolve('./loaders')]
   },
   module: {
     rules: [
@@ -39,43 +42,48 @@ module.exports = {
       //   }
       // },
       {
+        test: /\.js$/,
+        use: [
+          {
+            loader: 'babel-loader',
+          },
+          {
+            loader: 'local-inject-loader',
+            options: {
+              default: 'js',
+              autoImport: [
+                {
+                  name: 'localSocket2',
+                  paths: 'src/lib/socket/index.js'
+                }
+              ]
+            }
+          }
+        ],
+        include: path.resolve(__dirname, 'src'),
+        exclude: /node_modules/
+      },
+      {
         test: /\.vue$/,
         use: [
           {
             loader: 'vue-loader'
           },
           // {
-          //   loader: 'ts-loader'
+          //   loader: 'test-loader',
+          // },
+          // {
+          //   loader: 'local-inject-loader',
+          //   options: {
+          //     autoImport: [
+          //       {
+          //         name: 'localSocket',
+          //         paths: 'src/lib/socket/index.js'
+          //       }
+          //     ]
+          //   }
           // }
         ]
-      },
-      {
-        test: /\.js$/,
-        use: {
-          loader: 'babel-loader',
-          options: { // 用babel-loader 需要把es6-es5
-            presets: [
-              [
-                '@babel/preset-env',
-                {
-                  useBuiltIns: "usage",
-                  'corejs': 2
-                }
-              ]
-            ],
-            plugins: [
-              ["@babel/plugin-proposal-decorators", {
-                "legacy": true
-              }],
-              ["@babel/plugin-proposal-class-properties", {
-                "loose": true
-              }],
-              "@babel/plugin-transform-runtime"
-            ]
-          }
-        },
-        include: path.resolve(__dirname, 'src'),
-        exclude: /node_modules/
       },
       {
         test: /\.less$/,
@@ -83,19 +91,21 @@ module.exports = {
           process.env.NODE_ENV === 'production' ? {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              // only enable hot in development
               hmr: process.env.NODE_ENV === 'development',
-              // if hmr does not work, this is a forceful method.
               reloadAll: true,
             }
           } : 'vue-style-loader',
-          'css-loader',
-          'less-loader',
           {
-            loader: 'test-loader',
-            options: {
-              name: 'aa'
-            }
+              loader: 'css-loader',
+              options: {
+                  importLoaders: 2
+              }
+          },
+          // {
+          //     loader: 'postcss-loader'
+          // },
+          {
+              loader: 'less-loader'
           }
         ]
       }
@@ -109,5 +119,11 @@ module.exports = {
       template: path.resolve(__dirname, 'src', 'index.html'),
       hash: true
     })
+    // new HtmlWebpackPlugin({
+    //   title: '首页在这里',
+    //   filename: 'm2/index.html',
+    //   template: path.resolve(__dirname, 'src', 'm2/index.html'),
+    //   hash: true
+    // })
   ]
 }

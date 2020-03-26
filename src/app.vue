@@ -14,25 +14,71 @@
       <!-- <router-link to="/test">aa</router-link> -->
       <!-- <router-view></router-view> -->
   <!-- </div> -->
-  <div>
-    <video-comp />
+  <div style="height: 100%;">
+    <!-- <video-comp /> -->
+    <!-- <test /> -->
+    <!-- <div style="height: 500px; width: 600px; margin: 0 auto;">
+        <split v-model="splitVal" @on-moving="handleMove">
+          <split mode="vertical" v-model="splitVal2" slot="left">
+            <div slot="top">aa</div>
+            <div slot="bottom">bb</div>
+          </split>
+          <split mode="vertical" v-model="splitVal3" slot="right">
+            <div slot="top">ccc</div>
+            <div slot="bottom">ddd</div>
+          </split>
+        </split>
+    </div> -->
+    <!-- <router-view></router-view> -->
+    <position />
   </div>
 </template>
 
 <script>
 // import {mapActions, mapMutations, mapState, mapGetters} from './vuex/testmapAction'
-// import {getData} from '@/api'
-import videoComp from './views/video.vue'
+import {getData} from '@/api'
+// import videoComp from './views/video.vue'
+// import test from './views/test.vue'
+// import split from './views/split/index.vue'
+import position from './views/position.vue'
+// import vertical from './views/split/vertical.vue'
+// console.log('sourcesource')
+import mixinName from './mixin'
 export default {
+  mixins: [mixinName],
   name: 'app',
   data () {
     return {
+      // splitVal: 50,
+      // splitVal2: 50,
+      // splitVal3: 40
     }
   },
   components: {
-    videoComp
+    position
+    // vertical: () => import('./views/split/vertical.vue')
+    // videoComp,
+    // test,
+    // split,
+    // vertical
+  },
+  beforeMount () {
+    // localSocket.test()
+    // localSocket.test()
+    // console.log('localSocket', localSocket)
+    // console.log('parent-beforeMount')
+  },
+  beforeCreate () {
+    console.log('parent-beforecrated------')
+    // console.log(localSocket)
+    localSocket2.test()
   },
   created () {
+    console.log('paren')
+    // localSocket.test()
+    // console.log(localSocket.test())
+    // localSocket.test()
+    // console.log('parent-created')
     // console.log(this.$store)
     // setTimeout(_ => {
     //   this.$store.state.age = 100
@@ -56,6 +102,12 @@ export default {
     //   }
     // })
     // console.log('aaaaa---------', this.$store.state)
+  },
+  methods: {
+    handleMove (e) {
+      // console.log('ee111', e)
+      // localSocket.test()
+    }
   },
   // computed: {
   //   name () {
@@ -100,7 +152,7 @@ export default {
   //       console.log('a', a)
   //     }
   //   }),
-
+  // asdf
   //    ...mapGetters({
   //      whateverGets: (getters, self, a) => {
   //       console.log('getters', getters)
@@ -128,3 +180,13 @@ export default {
 
 </style>
 
+<style lang='less'>
+body , html{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  // background: red;
+}
+</style>
+
+ 

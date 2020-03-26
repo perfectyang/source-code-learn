@@ -4,13 +4,14 @@ const merge = require('webpack-merge')
 const chalk = require('chalk')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const Annotation = require('./plugins/annotation')
-const PocssMiniCss = require('./plugins/PocssMiniCss')
-const pressCss = require('./plugins/pressCss')
+// const Annotation = require('./plugins/annotation')
+const FitlerScriptHtml = require('./plugins/filter-script-html')
+// const PocssMiniCss = require('./plugins/PocssMiniCss')
+// const pressCss = require('./plugins/pressCss')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const FileListPlugin = require('./plugins/file-list-plugin')
-const GenratetsWebpackPlugin = require('./plugins/genratets-webpack-plugin')
+// const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+// const FileListPlugin = require('./plugins/file-list-plugin')
+// const GenratetsWebpackPlugin = require('./plugins/genratets-webpack-plugin')
 const {
   CleanWebpackPlugin
 } = require('clean-webpack-plugin')
@@ -99,15 +100,19 @@ const productionConfig = merge(baseConfig, {
       filename: assetsPath('css/[name].css?[hash]'),
       chunkFilename: assetsPath('css/[id].css?[hash]')
     }),
-    new Annotation({}),
-    new pressCss({
-      cssProcessorOptions: {
-        safe: true
-      }
-    }),
+    // new Annotation({}),
+    // new pressCss({
+    //   cssProcessorOptions: {
+    //     safe: true
+    //   }
+    // }),
     // new PocssMiniCss({})
-    new FileListPlugin({}),
-    new GenratetsWebpackPlugin()
+    // new FileListPlugin({}),
+    // new GenratetsWebpackPlugin(),
+    new FitlerScriptHtml({
+      filterHtml: ['m2/index.html'],
+      removeScriptName: ['pcui.dll.js']
+    })
   ]
 })
 
